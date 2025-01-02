@@ -1,4 +1,4 @@
-import { ArrowRight, Clock, Lock, MessageSquare, Shield } from "lucide-react";
+import { ArrowRight, Clock, Lock, MessageSquare, Shield, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { FeatureCard } from "@/components/feature-card";
@@ -116,6 +116,49 @@ const Index = () => {
           </Button>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 border-t border-gray-800 py-12 px-4">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-xl font-bold text-orange-500 mb-4">InstaRevive</h3>
+              <p className="text-gray-400">Professional Instagram account recovery service</p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Quick Links</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="#services" className="hover:text-orange-500">Services</a></li>
+                <li><a href="#how-it-works" className="hover:text-orange-500">How It Works</a></li>
+                <li><a href="#reviews" className="hover:text-orange-500">Reviews</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Legal</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="#privacy" className="hover:text-orange-500">Privacy Policy</a></li>
+                <li><a href="#terms" className="hover:text-orange-500">Terms of Service</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Contact</h4>
+              <div className="space-y-2 text-gray-400">
+                <div className="flex items-center gap-2">
+                  <Mail size={16} />
+                  <span>support@instarevive.com</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Phone size={16} />
+                  <span>+1 (555) 123-4567</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
+            <p>&copy; 2025 InstaRevive. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
