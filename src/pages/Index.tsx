@@ -124,8 +124,8 @@ const Index = () => {
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
             Don't wait any longer. Start the recovery process now and get back to sharing moments with your followers.
           </p>
-          <Button size="lg" className="mt-8">
-            Start Recovery Process
+          <Button size="lg" className="mt-8" onClick={() => setContactDialogOpen(true)}>
+            Submit your request
           </Button>
         </div>
       </section>
