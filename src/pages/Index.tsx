@@ -2,6 +2,9 @@ import { ArrowRight, Clock, Lock, MessageSquare, Shield, Mail, Phone } from "luc
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { FeatureCard } from "@/components/feature-card";
+import { FlickeringGrid } from "@/components/ui/flickering-grid";
+import { ContactFormDialog } from "@/components/contact-form-dialog";
+import { useState } from "react";
 
 const features = [
   {
@@ -22,10 +25,20 @@ const features = [
 ];
 
 const Index = () => {
+  const [contactDialogOpen, setContactDialogOpen] = useState(false);
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       {/* Hero Section */}
       <section className="relative flex min-h-[80vh] flex-col items-center justify-center px-4 py-24 text-center">
+        <FlickeringGrid
+          className="absolute inset-0 z-0"
+          squareSize={4}
+          gridGap={6}
+          color="#6B7280"
+          maxOpacity={0.5}
+          flickerChance={0.5}
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-background" />
         <div className="relative z-10 mx-auto max-w-4xl space-y-8">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
@@ -35,7 +48,7 @@ const Index = () => {
             Professional Instagram account recovery service. Get back online quickly and securely with our expert team.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-            <Button size="lg" className="gap-2">
+            <Button size="lg" className="gap-2" onClick={() => setContactDialogOpen(true)}>
               Start Recovery Process
               <ArrowRight className="h-4 w-4" />
             </Button>
@@ -159,6 +172,11 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      <ContactFormDialog 
+        open={contactDialogOpen} 
+        onOpenChange={setContactDialogOpen}
+      />
     </div>
   );
 };
