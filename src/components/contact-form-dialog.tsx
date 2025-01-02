@@ -4,6 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 export function ContactFormDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
   const { toast } = useToast();
@@ -20,16 +21,21 @@ export function ContactFormDialog({ open, onOpenChange }: { open: boolean; onOpe
     const message = formData.get('message');
 
     try {
-      // Here you would typically send this data to your backend
-      console.log('Sending email to socksbrest91@gmail.com with:', {
-        email,
-        contact,
-        name,
-        message
+      const { error } = await supabase.functions.invoke('send-email', {
+        body: {
+          to: 'socksbrest91@gmail.com',
+          subject: 'New Account Recovery Request',
+          content: `
+            New recovery request:
+            Email: ${email}
+            Contact: ${contact}
+            Name: ${name}
+            Message: ${message}
+          `
+        }
       });
 
-      // Simulate sending
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      if (error) throw error;
       
       toast({
         title: "Request Sent",
@@ -38,6 +44,7 @@ export function ContactFormDialog({ open, onOpenChange }: { open: boolean; onOpe
       
       onOpenChange(false);
     } catch (error) {
+      console.error('Error sending email:', error);
       toast({
         title: "Error",
         description: "Failed to send request. Please try again.",

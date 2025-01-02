@@ -5,6 +5,7 @@ import { FeatureCard } from "@/components/feature-card";
 import { FlickeringGrid } from "@/components/ui/flickering-grid";
 import { ContactFormDialog } from "@/components/contact-form-dialog";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const features = [
   {
@@ -26,6 +27,7 @@ const features = [
 
 const Index = () => {
   const [contactDialogOpen, setContactDialogOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -52,7 +54,7 @@ const Index = () => {
               Start Recovery Process
               <ArrowRight className="h-4 w-4" />
             </Button>
-            <Button size="lg" variant="outline">
+            <Button size="lg" variant="outline" onClick={() => navigate('/how-it-works')}>
               Learn More
             </Button>
           </div>
@@ -133,7 +135,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="bg-gray-900 border-t border-gray-800 py-12 px-4">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
               <h3 className="text-xl font-bold text-orange-500 mb-4">InstaRevive</h3>
               <p className="text-gray-400">Professional Instagram account recovery service</p>
@@ -141,16 +143,8 @@ const Index = () => {
             <div>
               <h4 className="font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#services" className="hover:text-orange-500">Services</a></li>
-                <li><a href="#how-it-works" className="hover:text-orange-500">How It Works</a></li>
+                <li><button onClick={() => navigate('/how-it-works')} className="hover:text-orange-500">How It Works</button></li>
                 <li><a href="#reviews" className="hover:text-orange-500">Reviews</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Legal</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#privacy" className="hover:text-orange-500">Privacy Policy</a></li>
-                <li><a href="#terms" className="hover:text-orange-500">Terms of Service</a></li>
               </ul>
             </div>
             <div>
@@ -158,11 +152,11 @@ const Index = () => {
               <div className="space-y-2 text-gray-400">
                 <div className="flex items-center gap-2">
                   <Mail size={16} />
-                  <span>support@instarevive.com</span>
+                  <span>socksbrest91@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone size={16} />
-                  <span>+1 (555) 123-4567</span>
+                  <span>+370 623 64 141</span>
                 </div>
               </div>
             </div>
