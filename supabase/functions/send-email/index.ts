@@ -6,6 +6,7 @@ const corsHeaders = {
 }
 
 serve(async (req) => {
+  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }
@@ -13,27 +14,50 @@ serve(async (req) => {
   try {
     const { email, contact, name, message, to, subject } = await req.json()
     
-    console.log('Received email request:', { email, contact, name, message, to, subject })
+    console.log('Processing email request:', { email, contact, name, message, to, subject })
 
-    // Here you would integrate with your email service (SendGrid, AWS SES, etc)
-    // For example with SendGrid:
-    // const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Authorization': `Bearer ${Deno.env.get('SENDGRID_API_KEY')}`,
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     personalizations: [{ to: [{ email: to }] }],
-    //     from: { email: 'your-verified-sender@domain.com' },
-    //     subject: subject,
-    //     content: [{
-    //       type: 'text/plain',
-    //       value: `New recovery request:\nEmail: ${email}\nContact: ${contact}\nName: ${name}\nMessage: ${message}`
-    //     }]
-    //   })
-    // })
+    // Send email using SendGrid API
+    const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${Deno.env.get('SENDGRID_API_KEY')}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        personalizations: [{ 
+          to: [{ email: to }] 
+        }],
+        from: { 
+          email: 'your-verified-sender@yourdomain.com',  // Replace with your verified sender
+          name: 'Instagram Account Recovery'
+        },
+        subject: subject,
+        content: [{
+          type: 'text/plain',
+          value: `
+New Account Recovery Request
 
+From: ${name}
+Email: ${email}
+Contact (WhatsApp/Telegram): ${contact}
+
+Message:
+${message}
+
+---
+This email was sent from your Instagram Account Recovery contact form.
+          `.trim()
+        }]
+      })
+    })
+
+    if (!response.ok) {
+      const errorData = await response.json()
+      console.error('SendGrid API error:', errorData)
+      throw new Error('Failed to send email')
+    }
+
+    console.log('Email sent successfully')
     return new Response(
       JSON.stringify({ message: 'Email sent successfully' }),
       { 
