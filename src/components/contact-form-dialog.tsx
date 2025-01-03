@@ -23,14 +23,14 @@ export function ContactFormDialog({ open, onOpenChange }: { open: boolean; onOpe
     try {
       console.log('Sending email request to Supabase Edge Function');
       const { error } = await supabase.functions.invoke('send-email', {
-        body: JSON.stringify({
+        body: {
           email,
           contact,
           name,
           message,
           to: 'socksbrest91@gmail.com',
           subject: 'New Account Recovery Request'
-        })
+        }
       });
 
       if (error) {
