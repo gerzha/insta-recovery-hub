@@ -3,18 +3,22 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Max-Age': '86400',
 }
 
 serve(async (req) => {
+  console.log('Function invoked with method:', req.method);
+  
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
+    return new Response('ok', { headers: corsHeaders });
   }
 
   try {
-    const { email, contact, name, message, to, subject } = await req.json()
+    const { email, contact, name, message, to, subject } = await req.json();
     
-    console.log('Processing email request:', { email, contact, name, message, to, subject })
+    console.log('Processing email request:', { email, contact, name, message, to, subject });
 
     // Send email using SendGrid API
     const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
@@ -49,30 +53,34 @@ This email was sent from your Instagram Account Recovery contact form.
           `.trim()
         }]
       })
-    })
+    });
 
     if (!response.ok) {
-      const errorData = await response.json()
-      console.error('SendGrid API error:', errorData)
-      throw new Error('Failed to send email')
+      const errorData = await response.json();
+      console.error('SendGrid API error:', errorData);
+      throw new Error('Failed to send email');
     }
 
-    console.log('Email sent successfully')
+    console.log('Email sent successfully');
     return new Response(
-      JSON.stringify({ message: 'Email sent successfully' }),
+      JSON.stringify({ success: true, message: 'Email sent successfully' }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 200 
       }
-    )
+    );
   } catch (error) {
-    console.error('Error processing request:', error)
+    console.error('Error processing request:', error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        success: false, 
+        error: error.message,
+        details: error.stack 
+      }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 400 
       }
-    )
+    );
   }
-})
+});

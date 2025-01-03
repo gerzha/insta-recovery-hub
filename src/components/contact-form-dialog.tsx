@@ -21,8 +21,13 @@ export function ContactFormDialog({ open, onOpenChange }: { open: boolean; onOpe
     const message = formData.get('message');
 
     try {
-      console.log('Sending email request to Supabase Edge Function');
-      const { error } = await supabase.functions.invoke('send-email', {
+      console.log('Preparing to send email request...');
+      
+      // First check if the function URL is accessible
+      const functionUrl = `${supabase.functions.url}/send-email`;
+      console.log('Function URL:', functionUrl);
+
+      const { data, error } = await supabase.functions.invoke('send-email', {
         body: {
           email,
           contact,
@@ -33,11 +38,13 @@ export function ContactFormDialog({ open, onOpenChange }: { open: boolean; onOpe
         }
       });
 
+      console.log('Response data:', data);
+
       if (error) {
-        console.error('Supabase Edge Function error:', error);
+        console.error('Supabase Function error:', error);
         throw error;
       }
-      
+
       console.log('Email sent successfully');
       toast({
         title: "Request Sent",
@@ -45,11 +52,17 @@ export function ContactFormDialog({ open, onOpenChange }: { open: boolean; onOpe
       });
       
       onOpenChange(false);
-    } catch (error) {
-      console.error('Error sending email:', error);
+    } catch (error: any) {
+      console.error('Detailed error:', {
+        message: error.message,
+        name: error.name,
+        stack: error.stack,
+        context: error.context
+      });
+      
       toast({
         title: "Error",
-        description: "Failed to send request. Please try again.",
+        description: "Failed to send request. Please try again later.",
         variant: "destructive",
       });
     } finally {
