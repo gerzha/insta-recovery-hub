@@ -22,10 +22,6 @@ export function ContactFormDialog({ open, onOpenChange }: { open: boolean; onOpe
 
     try {
       console.log('Preparing to send email request...');
-      
-      // First check if the function URL is accessible
-      const functionUrl = `${supabase.functions.url}/send-email`;
-      console.log('Function URL:', functionUrl);
 
       const { data, error } = await supabase.functions.invoke('send-email', {
         body: {
