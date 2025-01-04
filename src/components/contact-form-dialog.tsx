@@ -15,50 +15,37 @@ export function ContactFormDialog({ open, onOpenChange }: { open: boolean; onOpe
     setIsLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const email = formData.get('email');
-    const contact = formData.get('contact');
-    const name = formData.get('name');
-    const message = formData.get('message');
+    const email = formData.get('email') as string;
+    const contact = formData.get('contact') as string;
+    const name = formData.get('name') as string;
+    const message = formData.get('message') as string;
 
     try {
-      console.log('Preparing to send email request...');
+      console.log('Sending contact form submission...');
 
-      const { data, error } = await supabase.functions.invoke('send-email', {
-        body: {
-          email,
-          contact,
-          name,
-          message,
-          to: 'socksbrest91@gmail.com',
-          subject: 'New Account Recovery Request'
-        }
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: { email, contact, name, message }
       });
 
-      console.log('Response data:', data);
+      console.log('Response:', data);
 
       if (error) {
-        console.error('Supabase Function error:', error);
+        console.error('Error:', error);
         throw error;
       }
 
-      console.log('Email sent successfully');
       toast({
         title: "Request Sent",
-        description: "Our specialists are working on the problem.",
+        description: "We've received your message and will get back to you soon.",
       });
       
       onOpenChange(false);
     } catch (error: any) {
-      console.error('Detailed error:', {
-        message: error.message,
-        name: error.name,
-        stack: error.stack,
-        context: error.context
-      });
+      console.error('Error details:', error);
       
       toast({
         title: "Error",
-        description: "Failed to send request. Please try again later.",
+        description: "Failed to send message. Please try again later.",
         variant: "destructive",
       });
     } finally {
