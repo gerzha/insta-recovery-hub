@@ -1,1 +1,9 @@
 project_id = "hxeefuuqvagnjsvuxvtn"
+
+[api]
+enabled = true
+url = "https://hxeefuuqvagnjsvuxvtn.supabase.co"
+
+[functions]
+[functions.send-contact-email]
+verify_jwt = false

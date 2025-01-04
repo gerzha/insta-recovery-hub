@@ -2,8 +2,6 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
-const SUPABASE_URL = Deno.env.get('SUPABASE_URL')
-const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -13,33 +11,20 @@ const corsHeaders = {
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
+    return new Response(null, { headers: corsHeaders })
   }
 
   try {
-    const supabase = createClient(
-      SUPABASE_URL!,
-      SUPABASE_SERVICE_ROLE_KEY!
-    )
-
+    console.log('Received contact form submission request')
     const { email, contact, name, message } = await req.json()
 
-    // Store submission in database
-    const { error: dbError } = await supabase
-      .from('contact_submissions')
-      .insert([{ email, contact, name, message }])
-
-    if (dbError) {
-      console.error('Database error:', dbError)
-      throw new Error('Failed to store contact submission')
-    }
-
     // Send email using Resend
+    console.log('Sending email via Resend...')
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         from: 'InstaRevive <onboarding@resend.dev>',
@@ -52,8 +37,8 @@ serve(async (req) => {
           <p><strong>Contact:</strong> ${contact}</p>
           <p><strong>Message:</strong></p>
           <p>${message}</p>
-        `,
-      }),
+        `
+      })
     })
 
     if (!res.ok) {
@@ -62,25 +47,21 @@ serve(async (req) => {
       throw new Error('Failed to send email')
     }
 
-    return new Response(
-      JSON.stringify({ success: true }),
-      { 
-        headers: { 
-          ...corsHeaders,
-          'Content-Type': 'application/json'
-        }
-      }
-    )
+    const emailData = await res.json()
+    console.log('Email sent successfully:', emailData)
+
+    return new Response(JSON.stringify({ success: true }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: 200,
+    })
+
   } catch (error) {
-    console.error('Error:', error)
+    console.error('Error in send-contact-email function:', error)
     return new Response(
       JSON.stringify({ error: error.message }),
       { 
-        status: 400,
-        headers: {
-          ...corsHeaders,
-          'Content-Type': 'application/json'
-        }
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400 
       }
     )
   }
