@@ -1,9 +1,10 @@
-import { ArrowRight, Clock, Lock, MessageSquare, Shield, Mail, Phone, Star } from "lucide-react";
+import { ArrowRight, Clock, Lock, MessageCircle, Shield, Mail, Phone, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { FeatureCard } from "@/components/feature-card";
 import { FlickeringGrid } from "@/components/ui/flickering-grid";
 import { ContactFormDialog } from "@/components/contact-form-dialog";
+import { WhatsAppWidget } from "@/components/whatsapp-widget";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -219,6 +220,8 @@ const Index = () => {
         open={contactDialogOpen} 
         onOpenChange={setContactDialogOpen}
       />
+      
+      <WhatsAppWidget />
     </div>
   );
 };
