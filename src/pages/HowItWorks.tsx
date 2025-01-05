@@ -1,6 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 const HowItWorks = () => {
   const navigate = useNavigate();
@@ -17,38 +18,135 @@ const HowItWorks = () => {
       </Button>
 
       <div className="container mx-auto max-w-4xl">
-        <h1 className="text-4xl font-bold mb-8">How It Works</h1>
+        <SectionHeading 
+          title="How We Work - Instagram Account Recovery Process" 
+          className="mb-12"
+        />
         
-        <div className="space-y-8">
+        <div className="space-y-12 text-muted-foreground">
           <section>
-            <h2 className="text-2xl font-semibold mb-4">Our Recovery Process</h2>
-            <p className="text-muted-foreground">
-              We understand how frustrating it can be to lose access to your Instagram account. 
-              Our team of specialists works directly with Instagram's support team to help you 
-              regain access to your account quickly and securely.
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">Step 1: Initial Assessment</h2>
+            <p className="mb-4">
+              To begin recovering your Instagram account, we need some basic information from you:
+            </p>
+            <ul className="list-disc list-inside mb-4 space-y-2">
+              <li>Your Instagram username</li>
+              <li>The date when your account was blocked</li>
+              <li>Screenshots of the blocking notification</li>
+              <li>Any emails you received from Instagram about the blocking</li>
+            </ul>
+            <p className="mb-4">Our specialists will carefully review your case at no cost. This helps us determine:</p>
+            <ul className="list-disc list-inside space-y-2">
+              <li>Whether we can help recover your account</li>
+              <li>How long the recovery process might take</li>
+              <li>The cost of our service</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">Step 2: Receiving Your Assessment</h2>
+            <p className="mb-4">After reviewing your case, we'll provide you with:</p>
+            <ul className="list-disc list-inside mb-4 space-y-2">
+              <li>A detailed explanation of your situation</li>
+              <li>Our professional assessment of recovery chances</li>
+              <li>Expected timeline for recovery</li>
+              <li>Clear pricing for our service</li>
+            </ul>
+            <p>
+              At this point, you can decide whether you'd like to proceed with our service. 
+              There's no obligation to continue if you're not comfortable with the assessment or pricing.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-4">Step-by-Step Guide</h2>
-            <ol className="space-y-4 list-decimal list-inside text-muted-foreground">
-              <li>Fill out our secure contact form with your account details</li>
-              <li>Our team reviews your case within 24 hours</li>
-              <li>We work with Instagram support to verify your identity</li>
-              <li>Follow our instructions to regain access to your account</li>
-              <li>Get back to sharing moments with your followers</li>
-            </ol>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">Step 3: Beginning the Recovery Process</h2>
+            <p className="mb-4">If you choose to work with us, we'll need:</p>
+            <ul className="list-disc list-inside mb-4 space-y-2">
+              <li>Your Instagram username</li>
+              <li>Your Instagram password</li>
+            </ul>
+            <p>
+              We understand that sharing account credentials requires trust. 
+              We treat your information with the utmost confidentiality and use it solely for account recovery purposes.
+            </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-4">Why Choose Us</h2>
-            <ul className="space-y-4 list-disc list-inside text-muted-foreground">
-              <li>24/7 Customer Support</li>
-              <li>Experienced Recovery Specialists</li>
-              <li>High Success Rate</li>
-              <li>Secure and Confidential Process</li>
-              <li>Fast Response Time</li>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">Step 4: Account Recovery</h2>
+            <p>During this phase:</p>
+            <ul className="list-disc list-inside space-y-2">
+              <li>Our specialists work on recovering your account</li>
+              <li>We keep you updated on progress</li>
+              <li>We maintain open communication for any questions</li>
             </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">Step 5: Account Verification and Payment</h2>
+            <p className="mb-4">Once we successfully recover your account:</p>
+            <ol className="list-decimal list-inside mb-4 space-y-2">
+              <li>We return full access to you</li>
+              <li>You verify that everything works correctly</li>
+              <li>After verification, you complete the payment</li>
+              <li>You maintain full control of your recovered account</li>
+            </ol>
+            <p className="bg-secondary p-4 rounded-lg">
+              <strong className="text-foreground">Important Payment Note:</strong> Payment must be completed within 48 hours of successful recovery. 
+              If payment isn't received within this timeframe, the account will be permanently blocked for security reasons.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">Our Commitment to You</h2>
+            <p>We promise:</p>
+            <ul className="list-disc list-inside space-y-2">
+              <li>Professional and transparent service</li>
+              <li>Secure handling of your information</li>
+              <li>Clear communication throughout the process</li>
+              <li>No upfront fees</li>
+              <li>Full account access upon recovery</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">What We Need from You</h2>
+            <p>For the best results, please:</p>
+            <ul className="list-disc list-inside space-y-2">
+              <li>Provide accurate information</li>
+              <li>Respond promptly to our messages</li>
+              <li>Share all relevant details about the blocking</li>
+              <li>Complete payment within the specified timeframe</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">Important Reminders</h2>
+            <ul className="list-disc list-inside space-y-2">
+              <li>We are not affiliated with Instagram</li>
+              <li>We only begin work after you approve our assessment</li>
+              <li>Payment is only required after successful recovery</li>
+              <li>We cannot guarantee recovery of accounts that violated Instagram's Terms of Service</li>
+              <li>The 48-hour payment window is strict and non-negotiable</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">Need Help?</h2>
+            <p>
+              If you have questions at any point in the process, please contact us at{" "}
+              <a href="mailto:instarevived@gmail.com" className="text-primary hover:underline">
+                instarevived@gmail.com
+              </a>
+              . We're here to help and will respond promptly to your inquiries.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">Ready to Start?</h2>
+            <p>
+              To begin the recovery process, please send us your Instagram username, blocking date, 
+              and relevant screenshots. We'll get started on your assessment right away.
+            </p>
           </section>
         </div>
       </div>
