@@ -1,4 +1,4 @@
-import { ArrowRight, Clock, Lock, MessageSquare, Shield, Mail, Phone } from "lucide-react";
+import { ArrowRight, Clock, Lock, MessageSquare, Shield, Mail, Phone, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { FeatureCard } from "@/components/feature-card";
@@ -23,6 +23,27 @@ const features = [
     description: "Our dedicated team provides 24/7 assistance throughout the recovery process.",
     Icon: MessageSquare,
   },
+];
+
+const reviews = [
+  {
+    name: "Sarah Johnson",
+    rating: 5,
+    text: "I was devastated when I lost access to my business Instagram account. InstaRevive helped me recover it within 24 hours. Their service is worth every penny!",
+    date: "March 2024"
+  },
+  {
+    name: "Michael Chen",
+    rating: 5,
+    text: "Professional service and constant communication throughout the process. They recovered my account quickly and securely.",
+    date: "February 2024"
+  },
+  {
+    name: "Emma Williams",
+    rating: 5,
+    text: "After trying everything to recover my hacked account, InstaRevive was the only solution that worked. Highly recommended!",
+    date: "January 2024"
+  }
 ];
 
 const Index = () => {
@@ -119,6 +140,34 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Reviews Section */}
+      <section className="container mx-auto px-4 py-24">
+        <SectionHeading
+          title="What Our Clients Say"
+          subtitle="Real experiences from people we've helped recover their Instagram accounts"
+          className="mb-12"
+        />
+        <div className="grid gap-8 md:grid-cols-3">
+          {reviews.map((review, index) => (
+            <div
+              key={index}
+              className="rounded-lg border bg-card p-6 shadow-sm transition-all hover:shadow-md"
+            >
+              <div className="flex items-center gap-1 mb-4">
+                {[...Array(review.rating)].map((_, i) => (
+                  <Star key={i} className="h-5 w-5 fill-orange-500 text-orange-500" />
+                ))}
+              </div>
+              <p className="text-muted-foreground mb-4">{review.text}</p>
+              <div className="mt-auto">
+                <p className="font-semibold">{review.name}</p>
+                <p className="text-sm text-muted-foreground">{review.date}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="container mx-auto px-4 py-24">
         <div className="rounded-lg bg-primary/10 px-6 py-12 text-center sm:px-12">
@@ -144,7 +193,6 @@ const Index = () => {
               <h4 className="font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2 text-gray-400">
                 <li><button onClick={() => navigate('/how-it-works')} className="hover:text-orange-500">How It Works</button></li>
-                <li><a href="#reviews" className="hover:text-orange-500">Reviews</a></li>
               </ul>
             </div>
             <div>
@@ -152,7 +200,7 @@ const Index = () => {
               <div className="space-y-2 text-gray-400">
                 <div className="flex items-center gap-2">
                   <Mail size={16} />
-                  <span>socksbrest91@gmail.com</span>
+                  <span>instarevived@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone size={16} />
