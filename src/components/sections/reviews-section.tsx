@@ -3,19 +3,19 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 const reviews = [
   {
-    name: "Sarah Johnson",
+    name: "Alex Thompson",
     rating: 5,
     text: "I was devastated when I lost access to my business Instagram account. InstaRevive helped me recover it within 24 hours. Their service is worth every penny!",
     date: "March 2024"
   },
   {
-    name: "Michael Chen",
+    name: "Marcus Bennett",
     rating: 5,
     text: "Professional service and constant communication throughout the process. They recovered my account quickly and securely.",
     date: "February 2024"
   },
   {
-    name: "Emma Williams",
+    name: "Sophie Anderson",
     rating: 5,
     text: "After trying everything to recover my hacked account, InstaRevive was the only solution that worked. Highly recommended!",
     date: "January 2024"
